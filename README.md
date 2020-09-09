@@ -10,4 +10,4 @@ Make School | MOB 2.3 | Final Project for MOB 2.3
  - Spotify API
  
  ## Initial Wireframes
- [](wire.jpeg)
+ ![wire](wire.jpeg)
