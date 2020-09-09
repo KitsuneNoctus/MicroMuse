@@ -9,5 +9,5 @@ Make School | MOB 2.3 | Final Project for MOB 2.3
  - Xcode
  - Spotify API
  
- ## Initial Wireframes
+ ## Given Wireframes
  ![wire](wire.jpeg)
