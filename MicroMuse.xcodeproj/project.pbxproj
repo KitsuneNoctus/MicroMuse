@@ -16,6 +16,8 @@
 		3FDDA02125098F89001CF964 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FDDA01F25098F89001CF964 /* LaunchScreen.storyboard */; };
 		3FDDA02C25098F89001CF964 /* MicroMuseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDA02B25098F89001CF964 /* MicroMuseTests.swift */; };
 		3FDDA03725098F89001CF964 /* MicroMuseUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDA03625098F89001CF964 /* MicroMuseUITests.swift */; };
+		3FDDA04825099543001CF964 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDA04625099543001CF964 /* LoginController.swift */; };
+		3FDDA04925099543001CF964 /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FDDA04725099543001CF964 /* LoginController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		3FDDA03225098F89001CF964 /* MicroMuseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicroMuseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FDDA03625098F89001CF964 /* MicroMuseUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroMuseUITests.swift; sourceTree = "<group>"; };
 		3FDDA03825098F89001CF964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FDDA04625099543001CF964 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		3FDDA04725099543001CF964 /* LoginController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LoginController.xib; path = ../LoginController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,10 @@
 		3FDDA01025098F86001CF964 /* MicroMuse */ = {
 			isa = PBXGroup;
 			children = (
+				3FDDA04C25099A91001CF964 /* CoreData */,
+				3FDDA04B25099A8C001CF964 /* Model */,
+				3FDDA04525099523001CF964 /* API */,
+				3FDDA0442509951D001CF964 /* Controllers */,
 				3FDDA01125098F86001CF964 /* AppDelegate.swift */,
 				3FDDA01325098F86001CF964 /* SceneDelegate.swift */,
 				3FDDA01525098F86001CF964 /* ViewController.swift */,
@@ -129,6 +137,44 @@
 				3FDDA03825098F89001CF964 /* Info.plist */,
 			);
 			path = MicroMuseUITests;
+			sourceTree = "<group>";
+		};
+		3FDDA0442509951D001CF964 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3FDDA04A2509955D001CF964 /* Views */,
+				3FDDA04625099543001CF964 /* LoginController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3FDDA04525099523001CF964 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		3FDDA04A2509955D001CF964 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3FDDA04725099543001CF964 /* LoginController.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3FDDA04B25099A8C001CF964 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3FDDA04C25099A91001CF964 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FDDA02125098F89001CF964 /* LaunchScreen.storyboard in Resources */,
+				3FDDA04925099543001CF964 /* LoginController.xib in Resources */,
 				3FDDA01E25098F89001CF964 /* Assets.xcassets in Resources */,
 				3FDDA01925098F86001CF964 /* Main.storyboard in Resources */,
 			);
@@ -266,6 +313,7 @@
 				3FDDA01225098F86001CF964 /* AppDelegate.swift in Sources */,
 				3FDDA01C25098F86001CF964 /* MicroMuse.xcdatamodeld in Sources */,
 				3FDDA01425098F86001CF964 /* SceneDelegate.swift in Sources */,
+				3FDDA04825099543001CF964 /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
