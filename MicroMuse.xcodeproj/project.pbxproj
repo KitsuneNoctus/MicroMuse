@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F0CA3752512DABA00F5DCDB /* TabHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */; };
+		3F0CA3772512DD3A00F5DCDB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */; };
+		3F0CA3792512DD5D00F5DCDB /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */; };
 		3FDD1E63251041D400C51D14 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD1E62251041D400C51D14 /* NetworkManager.swift */; };
 		3FDD1E65251041DF00C51D14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD1E64251041DF00C51D14 /* Constants.swift */; };
 		3FDDA01225098F86001CF964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDA01125098F86001CF964 /* AppDelegate.swift */; };
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabHomeController.swift; sourceTree = "<group>"; };
+		3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		3FDD1E62251041D400C51D14 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3FDD1E64251041DF00C51D14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3FDDA00E25098F86001CF964 /* MicroMuse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroMuse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +170,9 @@
 			children = (
 				3FDDA04A2509955D001CF964 /* Views */,
 				3FDDA04625099543001CF964 /* LoginController.swift */,
+				3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */,
+				3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */,
+				3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -334,7 +343,10 @@
 				3FDDA01225098F86001CF964 /* AppDelegate.swift in Sources */,
 				3FDDA01C25098F86001CF964 /* MicroMuse.xcdatamodeld in Sources */,
 				3FDD1E65251041DF00C51D14 /* Constants.swift in Sources */,
+				3F0CA3772512DD3A00F5DCDB /* HomeViewController.swift in Sources */,
 				3FDDA01425098F86001CF964 /* SceneDelegate.swift in Sources */,
+				3F0CA3752512DABA00F5DCDB /* TabHomeController.swift in Sources */,
+				3F0CA3792512DD5D00F5DCDB /* FavViewController.swift in Sources */,
 				3FDDA04825099543001CF964 /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
