@@ -9,6 +9,7 @@
 import UIKit
 import AuthenticationServices
 import CryptoKit
+import Spartan
 
 class LoginController: UIViewController{
     
@@ -19,21 +20,32 @@ class LoginController: UIViewController{
                     print("Fetching token request error \(error)")
                     return
                 }
-                let accessToken = dictionary!["access_token"] as! String
-                DispatchQueue.main.async {
-                    self.appRemote.connectionParameters.accessToken = accessToken
-                    self.appRemote.connect()
-                }
+                self.accessToken = dictionary!["access_token"] as? String
+                LoginController.refreshToken = dictionary!["refresh_token"] as? String
+                //want to store refresh and access token
+                Spartan.authorizationToken = self.accessToken
+                _ = Spartan.getMe(success: { (user) in
+                    // Do something with the user
+                    print(user.displayName)
+                    print(user.email)
+                    DispatchQueue.main.async {
+                        let nextVC = TabHomeController()
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                    }
+                }, failure: { (error) in
+                    print(error)
+                })
             }
         }
     }
     
-    lazy var appRemote: SPTAppRemote = {
-        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
-        appRemote.connectionParameters.accessToken = self.accessToken
-//        appRemote.delegate = self
-        return appRemote
-    }()
+    //MARK: Tokens
+    static var accessToken = UserDefaults.standard.string(forKey: Constants.accessTokenKey) {
+        didSet { UserDefaults.standard.set(accessToken, forKey: Constants.accessTokenKey) }
+    }
+    static var refreshToken = UserDefaults.standard.string(forKey: Constants.refreshTokenKey) {
+        didSet { UserDefaults.standard.set(refreshToken, forKey: Constants.refreshTokenKey) }
+    }
     
     var accessToken = UserDefaults.standard.string(forKey: Constants.accessTokenKey) {
         didSet {
@@ -56,7 +68,6 @@ class LoginController: UIViewController{
         let manager = SPTSessionManager(configuration: configuration, delegate: self)
         return manager
     }()
-    private var lastPlayerState: SPTAppRemotePlayerState?
     
     
     @IBOutlet weak var loginButton: UIButton!
@@ -81,8 +92,6 @@ class LoginController: UIViewController{
                 sessionManager.initiateSession(with: Constants.scopes, options: .clientOnly, presenting: self)
             }
         }
-        let nextVC = TabHomeController()
-        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     //MARK: POST Request///fetch Spotify access token. Use after getting responseTypeCode
@@ -117,51 +126,14 @@ class LoginController: UIViewController{
     
 }
 
-//MARK: Extensions
-
-//  func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-//    updateViewBasedOnConnected()
-//    appRemote.playerAPI?.delegate = self
-//    appRemote.playerAPI?.subscribe(toPlayerState: { (success, error) in
-//      if let error = error {
-//        print("Error subscribing to player state:" + error.localizedDescription)
-//      }
-//    })
-//    fetchPlayerState()
-//  }
-//    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
-//    updateViewBasedOnConnected()
-//    lastPlayerState = nil
-//  }
-//    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
-//    updateViewBasedOnConnected()
-//    lastPlayerState = nil
-//  }
-//}
-//// MARK: - SPTAppRemotePlayerAPIDelegate
-//extension LoginController: SPTAppRemotePlayerStateDelegate {
-//  func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-//    debugPrint("Spotify Track name: %@", playerState.track.name)
-//    update(playerState: playerState)
-//  }
-//}
 
 // MARK: - SPTSessionManagerDelegate
 extension LoginController: SPTSessionManagerDelegate {
-  func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
-    if error.localizedDescription == "The operation couldn’t be completed. (com.spotify.sdk.login error 1.)" {
-      print("AUTHENTICATE with WEBAPI")
-    } else {
-        print(error)
-//      presentAlertController(title: "Authorization Failed", message: error.localizedDescription, buttonTitle: "Bummer")
-    }
-  }
-  
-  func sessionManager(manager: SPTSessionManager, didRenew session: SPTSession) {
-//    presentAlertController(title: "Session Renewed", message: session.description, buttonTitle: "Sweet")
-  }
     func sessionManager(manager: SPTSessionManager, didInitiate session: SPTSession) {
-    appRemote.connectionParameters.accessToken = session.accessToken
-    appRemote.connect()
+        print("INitiate Session")
+    }
+    
+  func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
+        print(error)
   }
 }

@@ -10,9 +10,10 @@ import Foundation
 
 struct Constants{
     static let accessTokenKey = "access-token-key"
-    static let clientID = "0ca05b1e477141e79eb15f6be52f502f"
+    static let refreshTokenKey = "refresh-token-key"
+    static let clientID = "4fc72d1cb09e4eecbcb849ed0236dc1f"
     static let redirectURI = URL(string: "micromuse://")
-    static let clientSecret = "3ec33deb2490422f9257ff01610eae0d"
+    static let clientSecret = "666cfb93d2294c44a88f5c3056568a69"
     
     //remove scopes you don't need
     static let scopes: SPTScope = [.userReadEmail, .userReadPrivate,
