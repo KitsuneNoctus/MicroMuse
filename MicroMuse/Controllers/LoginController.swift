@@ -11,14 +11,6 @@ import AuthenticationServices
 import CryptoKit
 
 class LoginController: UIViewController{
-    func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
-        <#code#>
-    }
-    
-    func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
-        <#code#>
-    }
-    
     
     var responseTypeCode: String? {
         didSet {
@@ -39,7 +31,7 @@ class LoginController: UIViewController{
     lazy var appRemote: SPTAppRemote = {
         let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
         appRemote.connectionParameters.accessToken = self.accessToken
-        appRemote.delegate = self
+//        appRemote.delegate = self
         return appRemote
     }()
     
@@ -50,7 +42,7 @@ class LoginController: UIViewController{
         }
     }
     lazy var configuration: SPTConfiguration = {
-        let configuration = SPTConfiguration(clientID: spotifyClientId, redirectURL: Constants.redirectURI)
+        let configuration = SPTConfiguration(clientID: Constants.clientID, redirectURL: Constants.redirectURI!)
         // Set the playURI to a non-nil value so that Spotify plays music after authenticating and App Remote can connect
         // otherwise another app switch will be required
         configuration.playURI = ""
@@ -80,13 +72,14 @@ class LoginController: UIViewController{
     
     //MARK: Action
     @IBAction func login(_ sender: Any) {
-        let sessionManager = sessionManager
-        if #available(iOS 11, *) {
-            // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
-            sessionManager.initiateSession(with: Constants.scopes, options: .clientOnly)
-        } else {
-            // Use this on iOS versions < 11 to use SFSafariViewController
-            sessionManager.initiateSession(with: Constants.scopes, options: .clientOnly, presenting: self)
+        if let sessionManager = sessionManager {
+            if #available(iOS 11, *) {
+                // Use this on iOS 11 and above to take advantage of SFAuthenticationSession
+                sessionManager.initiateSession(with: Constants.scopes, options: .clientOnly)
+            } else {
+                // Use this on iOS versions < 11 to use SFSafariViewController
+                sessionManager.initiateSession(with: Constants.scopes, options: .clientOnly, presenting: self)
+            }
         }
         let nextVC = TabHomeController()
         self.navigationController?.pushViewController(nextVC, animated: true)
@@ -126,14 +119,6 @@ class LoginController: UIViewController{
 
 //MARK: Extensions
 
-//// MARK: - SPTAppRemoteDelegate
-extension LoginController: SPTAppRemoteDelegate {
-    func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
-        <#code#>
-    }
-    
-    
-}
 //  func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
 //    updateViewBasedOnConnected()
 //    appRemote.playerAPI?.delegate = self
