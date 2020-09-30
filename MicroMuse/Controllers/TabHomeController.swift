@@ -23,11 +23,11 @@ class TabHomeController: UITabBarController, UITabBarControllerDelegate {
 
         let home = HomeViewController()
         let navHome = UINavigationController(rootViewController: home)
-        home.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named:""), tag: 0)
+        home.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named:"home"), tag: 0)
         
         let favorites = FavViewController()
         let navFav = UINavigationController(rootViewController: favorites)
-        favorites.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named:""), tag: 1)
+        favorites.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named:"star"), tag: 1)
         
         viewControllers = [navHome, navFav]
     }
@@ -37,3 +37,6 @@ class TabHomeController: UITabBarController, UITabBarControllerDelegate {
     }
 
 }
+
+// Icons
+/// <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>

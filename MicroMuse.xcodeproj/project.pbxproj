@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,10 @@
 		3F0CA3752512DABA00F5DCDB /* TabHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */; };
 		3F0CA3772512DD3A00F5DCDB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */; };
 		3F0CA3792512DD5D00F5DCDB /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */; };
+		3F26DE0525246344007098C6 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DE0425246344007098C6 /* SongCell.swift */; };
+		3F26DE0A25246380007098C6 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DE0925246380007098C6 /* SongViewController.swift */; };
+		3F48DCE82522B1470098EA12 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48DCE72522B1460098EA12 /* HomeCell.swift */; };
+		3F48DCF02522B3110098EA12 /* FavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48DCEF2522B3110098EA12 /* FavCell.swift */; };
 		3FDD1E63251041D400C51D14 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD1E62251041D400C51D14 /* NetworkManager.swift */; };
 		3FDD1E65251041DF00C51D14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD1E64251041DF00C51D14 /* Constants.swift */; };
 		3FDDA01225098F86001CF964 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDDA01125098F86001CF964 /* AppDelegate.swift */; };
@@ -50,6 +54,10 @@
 		3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabHomeController.swift; sourceTree = "<group>"; };
 		3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
+		3F26DE0425246344007098C6 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		3F26DE0925246380007098C6 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
+		3F48DCE72522B1460098EA12 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
+		3F48DCEF2522B3110098EA12 /* FavCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCell.swift; sourceTree = "<group>"; };
 		3FDD1E62251041D400C51D14 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		3FDD1E64251041DF00C51D14 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3FDDA00E25098F86001CF964 /* MicroMuse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroMuse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +117,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F48DCE62522B0D10098EA12 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3F48DCE72522B1460098EA12 /* HomeCell.swift */,
+				3F48DCEF2522B3110098EA12 /* FavCell.swift */,
+				3F26DE0425246344007098C6 /* SongCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		3FDD1E61251041BB00C51D14 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +205,7 @@
 				3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */,
 				3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */,
 				3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */,
+				3F26DE0925246380007098C6 /* SongViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -201,6 +220,7 @@
 		3FDDA04A2509955D001CF964 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3F48DCE62522B0D10098EA12 /* Cells */,
 				3FDDA04725099543001CF964 /* LoginController.xib */,
 			);
 			path = Views;
@@ -230,7 +250,6 @@
 				A033F3DFB9E5B22B7477A09C /* Pods-MicroMuseTests.debug.xcconfig */,
 				817323AB08B006EDA590184E /* Pods-MicroMuseTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -484,12 +503,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F48DCF02522B3110098EA12 /* FavCell.swift in Sources */,
 				3FDD1E63251041D400C51D14 /* NetworkManager.swift in Sources */,
 				3FDDA01225098F86001CF964 /* AppDelegate.swift in Sources */,
 				3FDDA01C25098F86001CF964 /* MicroMuse.xcdatamodeld in Sources */,
+				3F26DE0525246344007098C6 /* SongCell.swift in Sources */,
 				3FDD1E65251041DF00C51D14 /* Constants.swift in Sources */,
+				3F48DCE82522B1470098EA12 /* HomeCell.swift in Sources */,
 				3F0CA3772512DD3A00F5DCDB /* HomeViewController.swift in Sources */,
 				3FDDA01425098F86001CF964 /* SceneDelegate.swift in Sources */,
+				3F26DE0A25246380007098C6 /* SongViewController.swift in Sources */,
 				3F0CA3752512DABA00F5DCDB /* TabHomeController.swift in Sources */,
 				3F0CA3792512DD5D00F5DCDB /* FavViewController.swift in Sources */,
 				3FDDA04825099543001CF964 /* LoginController.swift in Sources */,

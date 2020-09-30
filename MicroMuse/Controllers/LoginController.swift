@@ -39,6 +39,13 @@ class LoginController: UIViewController{
         }
     }
     
+    lazy var appRemote: SPTAppRemote = {
+        let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
+        appRemote.connectionParameters.accessToken = accessToken
+        appRemote.delegate = self
+        return appRemote
+      }()
+    
     //MARK: Tokens
     static var accessToken = UserDefaults.standard.string(forKey: Constants.accessTokenKey) {
         didSet { UserDefaults.standard.set(accessToken, forKey: Constants.accessTokenKey) }
@@ -135,5 +142,22 @@ extension LoginController: SPTSessionManagerDelegate {
     
   func sessionManager(manager: SPTSessionManager, didFailWith error: Error) {
         print(error)
+  }
+}
+
+// MARK: - SPTAppRemoteDelegate
+extension LoginController: SPTAppRemoteDelegate {
+  func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
+    self.appRemote.playerAPI?.pause(nil)
+    self.appRemote.disconnect()
+  }
+  func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
+//    updateViewBasedOnConnected()
+//    lastPlayerState = nil
+    print(error)
+  }
+  func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
+    print(error)
+//    last PlayerState = nil
   }
 }
