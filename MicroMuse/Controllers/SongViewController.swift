@@ -32,6 +32,11 @@ class SongViewController: UIViewController {
         return lab
     }()
     
+    let labelTop: UILabel = {
+        let lab = UILabel()
+        return lab
+    }()
+    
     //MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
