@@ -54,7 +54,7 @@ class HomeViewController: UIViewController {
     
     //MARK: Fetch Results
     func fetchResults(){
-        Spartan.authorizationToken = LoginController.accessToken
+        Spartan.authorizationToken = NetworkManager.accessToken
         _ = Spartan.getMyTopArtists(limit: 20, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
             // Get the artists via pagingObject.items
             print(pagingObject.toJSON())
@@ -64,7 +64,7 @@ class HomeViewController: UIViewController {
     }
     
     func fetchNew(){
-        Spartan.authorizationToken = LoginController.accessToken
+        Spartan.authorizationToken = NetworkManager.accessToken
         _ = Spartan.getMyTopTracks(limit: 20, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
             // Get the tracks via pagingObject.items
             print(pagingObject.toJSON())

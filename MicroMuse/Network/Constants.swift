@@ -11,6 +11,7 @@ import Foundation
 struct Constants{
     static let accessTokenKey = "access-token-key"
     static let refreshTokenKey = "refresh-token-key"
+    static let authorizationCodeKey = "authorization-code-key"
     static let clientID = "4fc72d1cb09e4eecbcb849ed0236dc1f"
     static let redirectURI = URL(string: "micromuse://")
     static let clientSecret = "666cfb93d2294c44a88f5c3056568a69"
