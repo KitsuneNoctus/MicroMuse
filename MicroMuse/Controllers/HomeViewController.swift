@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Spartan
 
 class HomeViewController: UIViewController {
     
@@ -19,6 +20,8 @@ class HomeViewController: UIViewController {
         return table
     }()
     
+    
+    
     //MARK: View Did Appear
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +29,13 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
         setTable()
-        fetchResults()
+//        fetchResults()
+        fetchNew()
     }
     
     //MARK: View Will Appear
     override func viewWillAppear(_ animated: Bool) {
-        fetchResults()
+//        fetchResults()
         tableView.reloadData()
     }
     
@@ -50,8 +54,25 @@ class HomeViewController: UIViewController {
     
     //MARK: Fetch Results
     func fetchResults(){
-        
+        Spartan.authorizationToken = LoginController.accessToken
+        _ = Spartan.getMyTopArtists(limit: 20, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
+            // Get the artists via pagingObject.items
+            print(pagingObject.toJSON())
+        }, failure: { (error) in
+            print(error)
+        })
     }
+    
+    func fetchNew(){
+        Spartan.authorizationToken = LoginController.accessToken
+        _ = Spartan.getMyTopTracks(limit: 20, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
+            // Get the tracks via pagingObject.items
+            print(pagingObject.toJSON())
+        }, failure: { (error) in
+            print(error)
+        })
+    }
+    
 
 }
 
