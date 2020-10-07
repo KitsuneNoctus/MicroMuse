@@ -28,14 +28,22 @@ class SongsCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    
+    //MARK: Actions
     @IBAction func pressPlay(_ sender: Any) {
-        print(songURL)
+//        print(songURL)
         let url = URL(string: songURL)
-        MusicPlayer.shared.downloadFileFromURL(url: url!)
+        
+        if MusicPlayer.shared.AudioPlayer.isPlaying == true{
+            MusicPlayer.shared.AudioPlayer.pause()
+            self.playButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+        }else if MusicPlayer.shared.AudioPlayer.isPlaying == false{
+            MusicPlayer.shared.downloadFileFromURL(url: url!)
+            self.playButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+        }
+
     }
     @IBAction func selectFav(_ sender: Any) {
         tapCheck!()
-//        let favList = [String]()
-//        UserDefaults.standard.setValue(favList, forKey: "favSongs")
     }
 }

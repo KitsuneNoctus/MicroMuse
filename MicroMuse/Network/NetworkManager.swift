@@ -191,9 +191,10 @@ class NetworkManager{
        })
     }
     
-    static func fetchSong(trackId: String,completion: @escaping (Result<Track, Error>) -> Void){
-        _ = Spartan.getTrack(id: trackId, market: .us, success: { (track) in
-            completion(.success(track))
+    static func fetchSong(trackIds: [String],completion: @escaping (Result<[Track], Error>) -> Void){
+        _ = Spartan.getTracks(ids: trackIds, market: .us, success: { (tracks) in
+            // Do something with the tracks
+            completion(.success(tracks))
         }, failure: { (error) in
             completion(.failure(error))
         })

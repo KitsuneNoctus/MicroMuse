@@ -37,10 +37,11 @@ class FavViewController: UIViewController {
         if let favorites = userDefaults.stringArray(forKey: defaultKey){
             self.favs = favorites
         }
+        FetchSongs(self.favs)
         
-        for id in favs{
-            FetchSongs(id)
-        }
+//        for id in favs{
+//            FetchSongs(id)
+//        }
         setup()
     }
     
@@ -58,12 +59,12 @@ class FavViewController: UIViewController {
     }
     
     //MARK: Fetch Songs
-    func FetchSongs(_ songID: String){
-        NetworkManager.fetchSong(trackId: songID){ (result) in
+    func FetchSongs(_ songID: [String]){
+        NetworkManager.fetchSong(trackIds: songID){ (result) in
             switch result{
-            case let .success(track):
-                self.songs.append(track)
-                print(track.toJSON())
+            case let .success(tracks):
+                self.songs = tracks
+//                print(track.toJSON())
                 self.tableView.reloadData()
             case let .failure(error):
                 print(error)

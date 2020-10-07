@@ -11,7 +11,7 @@ import AVFoundation
 
 class MusicPlayer{
     static let shared = MusicPlayer()
-    private var AudioPlayer: AVAudioPlayer!
+    public var AudioPlayer: AVAudioPlayer!
     
     public func downloadFileFromURL(url: URL){
 
@@ -27,26 +27,45 @@ class MusicPlayer{
     
     //MARK: Play Music
     public func playMusic(_ songURL: URL){
-////        let url = Bundle.main.url(forResource: songURL, withExtension: nil) // 3)
-        if (songURL == nil) {
-            print("Could not find file: \(songURL)")
-            return
-        }
-//
-        var error: NSError? = nil
         do {
-            AudioPlayer = try AVAudioPlayer(contentsOf: songURL) // 4)
-        } catch let error1 as NSError {
-            error = error1
-            AudioPlayer = nil
+            print(songURL)
+            self.AudioPlayer = try AVAudioPlayer(contentsOf: songURL)
+            do {
+                try AVAudioSession.sharedInstance().setCategory(.playback)
+              } catch(let error) {
+                print(error.localizedDescription)
+              }
+            AudioPlayer.prepareToPlay()
+            AudioPlayer.volume = 1.0
+            AudioPlayer.play()
+        } catch let error as NSError {
+            //self.player = nil
+            print(error.localizedDescription)
+        } catch {
+            print("AVAudioPlayer init failed")
         }
-        
-        if let player = AudioPlayer {
-            player.numberOfLoops = -1 // 5)
-            player.prepareToPlay() // 6)
-            player.play() // 7)
-        } else {
-            print("Could not create audio player: \(error!)")
-        }
+
+//        let strU = songURL as! String
+//        let url = Bundle.main.url(forResource: strU, withExtension: nil) // 3)
+//        if (songURL == nil) {
+//            print("Could not find file: \(songURL)")
+//            return
+//        }
+////
+//        var error: NSError? = nil
+//        do {
+//            AudioPlayer = try AVAudioPlayer(contentsOf: songURL) // 4)
+//        } catch let error1 as NSError {
+//            error = error1
+//            AudioPlayer = nil
+//        }
+//
+//        if let player = AudioPlayer {
+//            player.numberOfLoops = -1 // 5)
+//            player.prepareToPlay() // 6)
+//            player.play() // 7)
+//        } else {
+//            print("Could not create audio player: \(error!)")
+//        }
     }
 }
