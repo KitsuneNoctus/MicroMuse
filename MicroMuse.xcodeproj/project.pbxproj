@@ -11,7 +11,6 @@
 		3F0CA3752512DABA00F5DCDB /* TabHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */; };
 		3F0CA3772512DD3A00F5DCDB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */; };
 		3F0CA3792512DD5D00F5DCDB /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */; };
-		3F26DE0525246344007098C6 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DE0425246344007098C6 /* SongCell.swift */; };
 		3F26DE0A25246380007098C6 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DE0925246380007098C6 /* SongViewController.swift */; };
 		3F48DCE82522B1470098EA12 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48DCE72522B1460098EA12 /* HomeCell.swift */; };
 		3F48DCF02522B3110098EA12 /* FavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48DCEF2522B3110098EA12 /* FavCell.swift */; };
@@ -31,6 +30,8 @@
 		3FDDA04925099543001CF964 /* LoginController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FDDA04725099543001CF964 /* LoginController.xib */; };
 		3FF021A3251179F900C71781 /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF021A2251179F900C71781 /* SpotifyiOS.framework */; };
 		3FF53144252D5CD200CF4C32 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF53143252D5CD200CF4C32 /* MusicPlayer.swift */; };
+		3FF5314A252D922200CF4C32 /* SongsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF53148252D922200CF4C32 /* SongsCell.swift */; };
+		3FF5314B252D922200CF4C32 /* SongsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FF53149252D922200CF4C32 /* SongsCell.xib */; };
 		67E198362D03F2F4D3797810 /* Pods_MicroMuseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6E830958FE8584B3DA48A3 /* Pods_MicroMuseTests.framework */; };
 		72B73C36DB7D4E36E570C1A3 /* Pods_MicroMuse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DB52AD276C9484BA048029D /* Pods_MicroMuse.framework */; };
 /* End PBXBuildFile section */
@@ -57,7 +58,6 @@
 		3F0CA3742512DAB900F5DCDB /* TabHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabHomeController.swift; sourceTree = "<group>"; };
 		3F0CA3762512DD3A00F5DCDB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3F0CA3782512DD5D00F5DCDB /* FavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
-		3F26DE0425246344007098C6 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		3F26DE0925246380007098C6 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
 		3F48DCE72522B1460098EA12 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
 		3F48DCEF2522B3110098EA12 /* FavCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavCell.swift; sourceTree = "<group>"; };
@@ -83,6 +83,8 @@
 		3FF021A12511793900C71781 /* MicroMuse-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MicroMuse-Bridging-Header.h"; sourceTree = "<group>"; };
 		3FF021A2251179F900C71781 /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		3FF53143252D5CD200CF4C32 /* MusicPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		3FF53148252D922200CF4C32 /* SongsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsCell.swift; sourceTree = "<group>"; };
+		3FF53149252D922200CF4C32 /* SongsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongsCell.xib; sourceTree = "<group>"; };
 		4C5D312C9C7717E5E536069D /* Pods-MicroMuse-MicroMuseUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroMuse-MicroMuseUITests.debug.xcconfig"; path = "Target Support Files/Pods-MicroMuse-MicroMuseUITests/Pods-MicroMuse-MicroMuseUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		7DB52AD276C9484BA048029D /* Pods_MicroMuse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MicroMuse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		817323AB08B006EDA590184E /* Pods-MicroMuseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MicroMuseTests.release.xcconfig"; path = "Target Support Files/Pods-MicroMuseTests/Pods-MicroMuseTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,7 +130,8 @@
 			children = (
 				3F48DCE72522B1460098EA12 /* HomeCell.swift */,
 				3F48DCEF2522B3110098EA12 /* FavCell.swift */,
-				3F26DE0425246344007098C6 /* SongCell.swift */,
+				3FF53148252D922200CF4C32 /* SongsCell.swift */,
+				3FF53149252D922200CF4C32 /* SongsCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FF5314B252D922200CF4C32 /* SongsCell.xib in Resources */,
 				3FDDA02125098F89001CF964 /* LaunchScreen.storyboard in Resources */,
 				3FDDA04925099543001CF964 /* LoginController.xib in Resources */,
 				3FDDA01E25098F89001CF964 /* Assets.xcassets in Resources */,
@@ -529,8 +533,8 @@
 				3F80804525255EE700D3B744 /* EndpointError.swift in Sources */,
 				3FDD1E63251041D400C51D14 /* NetworkManager.swift in Sources */,
 				3FDDA01225098F86001CF964 /* AppDelegate.swift in Sources */,
+				3FF5314A252D922200CF4C32 /* SongsCell.swift in Sources */,
 				3FDDA01C25098F86001CF964 /* MicroMuse.xcdatamodeld in Sources */,
-				3F26DE0525246344007098C6 /* SongCell.swift in Sources */,
 				3FDD1E65251041DF00C51D14 /* Constants.swift in Sources */,
 				3F48DCE82522B1470098EA12 /* HomeCell.swift in Sources */,
 				3FF53144252D5CD200CF4C32 /* MusicPlayer.swift in Sources */,

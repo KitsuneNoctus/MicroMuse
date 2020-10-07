@@ -10,23 +10,37 @@ import Foundation
 import AVFoundation
 
 class MusicPlayer{
-    private var AudioPlayer: AVAudioPlayer?
+    static let shared = MusicPlayer()
+    private var AudioPlayer: AVAudioPlayer!
+    
+    public func downloadFileFromURL(url: URL){
+
+        var downloadTask:URLSessionDownloadTask
+        downloadTask = URLSession.shared.downloadTask(with: url, completionHandler: { [weak self](URL, response, error) -> Void in
+            self?.playMusic(URL!)
+        })
+
+        downloadTask.resume()
+
+    }
+
     
     //MARK: Play Music
-    public func playMusic(_ songURL: String){
-        let url = Bundle.main.url(forResource: songURL, withExtension: nil) // 3)
-        if (url == nil) {
+    public func playMusic(_ songURL: URL){
+////        let url = Bundle.main.url(forResource: songURL, withExtension: nil) // 3)
+        if (songURL == nil) {
             print("Could not find file: \(songURL)")
             return
         }
-        
+//
         var error: NSError? = nil
         do {
-            AudioPlayer = try AVAudioPlayer(contentsOf: url!) // 4)
+            AudioPlayer = try AVAudioPlayer(contentsOf: songURL) // 4)
         } catch let error1 as NSError {
             error = error1
             AudioPlayer = nil
         }
+        
         if let player = AudioPlayer {
             player.numberOfLoops = -1 // 5)
             player.prepareToPlay() // 6)

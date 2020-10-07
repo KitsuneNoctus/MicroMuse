@@ -184,7 +184,7 @@ class NetworkManager{
     //MARK: Fetch Artists Top Tracks
     static func fetchTopTracks(artistId: String,completion: @escaping (Result<[Track], Error>) -> Void){
         _ = Spartan.getArtistsTopTracks(artistId: artistId, country: .us, success: { (tracks) in
-            print(tracks.toJSON())
+//            print(tracks.toJSON())
             completion(.success(tracks))
        }, failure: { (error) in
         completion(.failure(error))

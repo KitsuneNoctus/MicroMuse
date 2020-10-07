@@ -17,12 +17,13 @@ class SongViewController: UIViewController {
     var followers = 0
     var artistID = ""
     var songs:[Track] = []
+    var favs:[Any] = []
     
     let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .clear
-        table.register(SongCell.self, forCellReuseIdentifier: SongCell.identifier)
+        table.register(UINib(nibName: "SongsCell", bundle: nil), forCellReuseIdentifier: SongsCell.identifier)
         table.separatorStyle = UITableViewCell.SeparatorStyle.none
         return table
     }()
@@ -79,7 +80,7 @@ class SongViewController: UIViewController {
             case let .success(track):
                 DispatchQueue.main.async {
                     self.songs = track
-                    print(self.songs)
+//                    print(self.songs)
                     self.tableView.reloadData()
                 }
             case let .failure(error):
@@ -95,16 +96,29 @@ extension SongViewController: UITableViewDelegate, UITableViewDataSource{
         return songs.count
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: SongCell.identifier, for: indexPath) as! SongCell
-        
-//        let urlString = artistList[indexPath.row].images.first?.url
+        let cell = tableView.dequeueReusableCell(withIdentifier: SongsCell.identifier, for: indexPath) as! SongsCell
         let urlString = songs[indexPath.row].album.images.first?.url
         let url = URL(string: urlString!)
-        cell.songImage.kf.setImage(with: url)
+        cell.albumImage.kf.setImage(with: url)
+        cell.songName.text = songs[indexPath.row].name
+        guard let songURL = songs[indexPath.row].previewUrl else{
+            cell.playButton.isEnabled = false
+            return cell
+        }
+        cell.playButton.isEnabled = true
+        cell.songURL = songURL
         
-        cell.songLabel.text = songs[indexPath.row].name
-//        cell.textLabel?.text = songs[indexPath.row].name
+        cell.tapCheck = {
+            print("Favorited")
+            self.favs.append(self.songs[indexPath.row].id!)
+            tableView.reloadData()
+        }
+
         return cell
     }
     
