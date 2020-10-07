@@ -11,6 +11,8 @@ import Spartan
 
 class HomeViewController: UIViewController {
     
+    var artists:[Artist] = []
+    
     let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -29,8 +31,8 @@ class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
         setTable()
-//        fetchResults()
-        fetchNew()
+        fetchArtists()
+        self.tableView.reloadData()
     }
     
     //MARK: View Will Appear
@@ -52,34 +54,24 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    //MARK: Fetch Results
-    func fetchResults(){
-        Spartan.authorizationToken = NetworkManager.accessToken
-        _ = Spartan.getMyTopArtists(limit: 20, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
-            // Get the artists via pagingObject.items
-            print(pagingObject.toJSON())
-        }, failure: { (error) in
-            print(error)
-        })
+    func fetchArtists(){
+        NetworkManager.fetchTopArtists(){ (result) in
+            switch result{
+            case let .success(artists):
+                DispatchQueue.main.async {
+                    self.artists = artists
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
     }
-    
-    func fetchNew(){
-        Spartan.authorizationToken = NetworkManager.accessToken
-        _ = Spartan.getMyTopTracks(limit: 20, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
-            // Get the tracks via pagingObject.items
-            print(pagingObject.toJSON())
-        }, failure: { (error) in
-            print(error)
-        })
-    }
-    
-
 }
 
 //MARK: Table Extensions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return artists.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

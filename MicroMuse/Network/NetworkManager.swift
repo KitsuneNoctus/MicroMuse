@@ -57,7 +57,7 @@ class NetworkManager{
     static var refreshToken = UserDefaults.standard.string(forKey: Constants.refreshTokenKey) {
         didSet { UserDefaults.standard.set(refreshToken, forKey: Constants.refreshTokenKey) }
     }
-
+    
     
     //MARK: Configurtion
     static var configuration: SPTConfiguration = {
@@ -70,34 +70,34 @@ class NetworkManager{
     
     //MARK: Fetch Access Token
     static func fetchAccessToken(completion: @escaping (_ error: Error?) -> Void) {
-          guard let code = authorizationCode else { return completion(EndPointError.missing(message: "No authorization code found.")) }
-          let url = URL(string: "\(baseURL)api/token")!
-          var request = URLRequest(url: url)
-          request.httpMethod = "POST"
-          let spotifyAuthKey = "Basic \((clientID + ":" + clientSecret).data(using: .utf8)!.base64EncodedString())"
-          request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
-                                         "Content-Type": "application/x-www-form-urlencoded"]
-          var requestBodyComponents = URLComponents()
-          let scopeAsString = stringScopes.joined(separator: " ") //put array to string separated by whitespace
-          requestBodyComponents.queryItems = [
-              URLQueryItem(name: "client_id", value: clientID),
-              URLQueryItem(name: "grant_type", value: "authorization_code"),
-              URLQueryItem(name: "code", value: code),
-              URLQueryItem(name: "redirect_uri", value: redirectURI),
-              URLQueryItem(name: "code_verifier", value: codeVerifier),
-              URLQueryItem(name: "scope", value: scopeAsString),
-          ]
-          request.httpBody = requestBodyComponents.query?.data(using: .utf8)
-          let task = URLSession.shared.dataTask(with: request) { data, response, error in
-              guard let data = data,                              // is there data
-                    let response = response as? HTTPURLResponse,  // is there HTTP response
-                    (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
-                    error == nil else {                           // was there no error, otherwise ...
-                  return completion(EndPointError.noData(message: "No data found"))
-              }
-              do {
+        guard let code = authorizationCode else { return completion(EndPointError.missing(message: "No authorization code found.")) }
+        let url = URL(string: "\(baseURL)api/token")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let spotifyAuthKey = "Basic \((clientID + ":" + clientSecret).data(using: .utf8)!.base64EncodedString())"
+        request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
+                                       "Content-Type": "application/x-www-form-urlencoded"]
+        var requestBodyComponents = URLComponents()
+        let scopeAsString = stringScopes.joined(separator: " ") //put array to string separated by whitespace
+        requestBodyComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: clientID),
+            URLQueryItem(name: "grant_type", value: "authorization_code"),
+            URLQueryItem(name: "code", value: code),
+            URLQueryItem(name: "redirect_uri", value: redirectURI),
+            URLQueryItem(name: "code_verifier", value: codeVerifier),
+            URLQueryItem(name: "scope", value: scopeAsString),
+        ]
+        request.httpBody = requestBodyComponents.query?.data(using: .utf8)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,                              // is there data
+                  let response = response as? HTTPURLResponse,  // is there HTTP response
+                  (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
+                  error == nil else {                           // was there no error, otherwise ...
+                return completion(EndPointError.noData(message: "No data found"))
+            }
+            do {
                 if let jsonResult = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]{
-//                    print(jsonResult)
+                    //                    print(jsonResult)
                     guard let refreshToken = jsonResult["refresh_token"] as? String else { return }
                     guard let accessToken = jsonResult["access_token"] as? String else {
                         return }
@@ -107,45 +107,45 @@ class NetworkManager{
                     Spartan.authorizationToken = accessToken
                     completion(nil)
                 }
-//                  if let spotifyAuth = try? decoder.decode(SpotifyAuth.self, from: data) {
-//                      self.accessToken = spotifyAuth.accessToken
-//                      self.authorizationCode = nil
-//                      self.refreshToken = spotifyAuth.refreshToken
-//  //                    Spartan.authorizationToken = spotifyAuth.accessToken
-//                      return completion(.success(spotifyAuth))
-//                  }
-                  completion(EndPointError.couldNotParse(message: "Failed to decode data"))
-              }
-          }
-          task.resume()
-      }
-      
+                //                  if let spotifyAuth = try? decoder.decode(SpotifyAuth.self, from: data) {
+                //                      self.accessToken = spotifyAuth.accessToken
+                //                      self.authorizationCode = nil
+                //                      self.refreshToken = spotifyAuth.refreshToken
+                //  //                    Spartan.authorizationToken = spotifyAuth.accessToken
+                //                      return completion(.success(spotifyAuth))
+                //                  }
+                completion(EndPointError.couldNotParse(message: "Failed to decode data"))
+            }
+        }
+        task.resume()
+    }
+    
     //MARK: Refresh Access Token
     static func refreshAcessToken(completion: @escaping (_ error: Error?) -> Void) {
-          guard let refreshToken = refreshToken else { return completion(EndPointError.missing(message: "No refresh token found.")) }
-          let url = URL(string: "\(baseURL)api/token")!
-          var request = URLRequest(url: url)
-          request.httpMethod = "POST"
-          let spotifyAuthKey = "Basic \((clientID + ":" + clientSecret).data(using: .utf8)!.base64EncodedString())"
-          request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
-                                         "Content-Type": "application/x-www-form-urlencoded"]
-          var requestBodyComponents = URLComponents()
-          requestBodyComponents.queryItems = [
-              URLQueryItem(name: "grant_type", value: "refresh_token"),
-              URLQueryItem(name: "refresh_token", value: refreshToken),
-              URLQueryItem(name: "client_id", value: clientID),
-          ]
-          request.httpBody = requestBodyComponents.query?.data(using: .utf8)
-          let task = URLSession.shared.dataTask(with: request) { data, response, error in
-              guard let data = data,                              // is there data
-                    let response = response as? HTTPURLResponse,  // is there HTTP response
-                    (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
-                    error == nil else {                           // was there no error, otherwise ...
-                  return completion(EndPointError.noData(message: "No data found"))
-              }
-              let decoder = JSONDecoder()
-              decoder.keyDecodingStrategy = .convertFromSnakeCase  //convert keys from snake case to camel case
-              do {
+        guard let refreshToken = refreshToken else { return completion(EndPointError.missing(message: "No refresh token found.")) }
+        let url = URL(string: "\(baseURL)api/token")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        let spotifyAuthKey = "Basic \((clientID + ":" + clientSecret).data(using: .utf8)!.base64EncodedString())"
+        request.allHTTPHeaderFields = ["Authorization": spotifyAuthKey,
+                                       "Content-Type": "application/x-www-form-urlencoded"]
+        var requestBodyComponents = URLComponents()
+        requestBodyComponents.queryItems = [
+            URLQueryItem(name: "grant_type", value: "refresh_token"),
+            URLQueryItem(name: "refresh_token", value: refreshToken),
+            URLQueryItem(name: "client_id", value: clientID),
+        ]
+        request.httpBody = requestBodyComponents.query?.data(using: .utf8)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,                              // is there data
+                  let response = response as? HTTPURLResponse,  // is there HTTP response
+                  (200 ..< 300) ~= response.statusCode,         // is statusCode 2XX
+                  error == nil else {                           // was there no error, otherwise ...
+                return completion(EndPointError.noData(message: "No data found"))
+            }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase  //convert keys from snake case to camel case
+            do {
                 if let jsonResult = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any]{
                     print(jsonResult)
                     guard let accessToken = jsonResult["access_token"] as? String else {
@@ -155,15 +155,38 @@ class NetworkManager{
                     Spartan.authorizationToken = accessToken
                     completion(nil)
                 }
-//                  if let spotifyAuth = try? decoder.decode(SpotifyAuth.self, from: data) {
-//                      self.accessToken = spotifyAuth.accessToken
-//  //                    Spartan.authorizationToken = spotifyAuth.accessToken
-//                      return completion(.success(spotifyAuth))
-//                  }
-                  completion(EndPointError.couldNotParse(message: "Failed to decode data"))
-              }
-          }
-          task.resume()
-      }
+                //                  if let spotifyAuth = try? decoder.decode(SpotifyAuth.self, from: data) {
+                //                      self.accessToken = spotifyAuth.accessToken
+                //  //                    Spartan.authorizationToken = spotifyAuth.accessToken
+                //                      return completion(.success(spotifyAuth))
+                //                  }
+                completion(EndPointError.couldNotParse(message: "Failed to decode data"))
+            }
+        }
+        task.resume()
+    }
+    
+    //MARK: Fetch Users
+    static func fetchUser(){
+        
+    }
+    
+    //MARK: Fetch Artists
+    static func fetchTopArtists(completion: @escaping (Result<[Artist], Error>) -> Void){
+        _ = Spartan.getMyTopArtists(limit: 50, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
+            completion(.success(pagingObject.items))
+        }, failure: { (error) in
+            completion(.failure(error))
+        })
+    }
+    
+    //MARK: Fetch Artists Top Tracks
+    static func fetchTopTracks(artistId: String,completion: @escaping (Result<[Track], Error>) -> Void){
+        _ = Spartan.getArtistsTopTracks(artistId: artistId, country: .us, success: { (tracks) in
+            completion(.success(tracks))
+       }, failure: { (error) in
+        completion(.failure(error))
+       })
+    }
     
 }

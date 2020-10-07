@@ -13,6 +13,7 @@ class SongViewController: UIViewController {
     
     var artist = "Artist"
     var followers = 0
+    var artistID = ""
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -65,6 +66,8 @@ class SongViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
+    
+    //MARK: Fetch Songs
     
     //MARK: Player
     func playSong(){

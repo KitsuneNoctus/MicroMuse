@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		3F26DE0A25246380007098C6 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F26DE0925246380007098C6 /* SongViewController.swift */; };
 		3F48DCE82522B1470098EA12 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48DCE72522B1460098EA12 /* HomeCell.swift */; };
 		3F48DCF02522B3110098EA12 /* FavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F48DCEF2522B3110098EA12 /* FavCell.swift */; };
+		3F6780B5252D4D5C00EB3E6D /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 3F6780B4252D4D5C00EB3E6D /* Kingfisher */; };
 		3F80804525255EE700D3B744 /* EndpointError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F80804425255EE600D3B744 /* EndpointError.swift */; };
 		3FDD1E63251041D400C51D14 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD1E62251041D400C51D14 /* NetworkManager.swift */; };
 		3FDD1E65251041DF00C51D14 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDD1E64251041DF00C51D14 /* Constants.swift */; };
@@ -95,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F6780B5252D4D5C00EB3E6D /* Kingfisher in Frameworks */,
 				3FF021A3251179F900C71781 /* SpotifyiOS.framework in Frameworks */,
 				72B73C36DB7D4E36E570C1A3 /* Pods_MicroMuse.framework in Frameworks */,
 			);
@@ -284,6 +286,9 @@
 			dependencies = (
 			);
 			name = MicroMuse;
+			packageProductDependencies = (
+				3F6780B4252D4D5C00EB3E6D /* Kingfisher */,
+			);
 			productName = MicroMuse;
 			productReference = 3FDDA00E25098F86001CF964 /* MicroMuse.app */;
 			productType = "com.apple.product-type.application";
@@ -359,6 +364,9 @@
 				Base,
 			);
 			mainGroup = 3FDDA00525098F86001CF964;
+			packageReferences = (
+				3F6780B3252D4D5C00EB3E6D /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 3FDDA00F25098F86001CF964 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -866,6 +874,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3F6780B3252D4D5C00EB3E6D /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.15.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3F6780B4252D4D5C00EB3E6D /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F6780B3252D4D5C00EB3E6D /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3FDDA01A25098F86001CF964 /* MicroMuse.xcdatamodeld */ = {
