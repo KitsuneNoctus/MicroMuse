@@ -8,12 +8,15 @@
 
 import UIKit
 import AVFoundation
+import Spartan
+import Kingfisher
 
 class SongViewController: UIViewController {
     
     var artist = "Artist"
     var followers = 0
     var artistID = ""
+    var songs:[SimplifiedTrack] = []
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -68,6 +71,18 @@ class SongViewController: UIViewController {
     }
     
     //MARK: Fetch Songs
+    func FetchSongs(){
+        NetworkManager.fetchTopTracks(artistId: artistID) { (result) in
+            switch result{
+            case let .success(track):
+                DispatchQueue.main.async {
+                    self.songs = track
+                }
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
     
     //MARK: Player
     func playSong(){
@@ -79,11 +94,12 @@ class SongViewController: UIViewController {
 //MARK: Table Extensions
 extension SongViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return songs.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SongCell.identifier, for: indexPath) as! SongCell
+        cell.songLabel.text = songs[indexPath.row].name
         return cell
     }
     

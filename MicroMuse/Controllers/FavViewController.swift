@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+import Spartan
+import Kingfisher
 
 class FavViewController: UIViewController {
     
