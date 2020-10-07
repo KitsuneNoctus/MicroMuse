@@ -12,7 +12,7 @@ import Kingfisher
 
 class HomeViewController: UIViewController {
     
-    var artists:[Artist] = []
+    var artistList:[Artist] = []
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -28,11 +28,12 @@ class HomeViewController: UIViewController {
     //MARK: View Did Appear
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Top 50 Artists"
+        self.title = "Top Artists"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
         setTable()
         fetchArtists()
+//        print(artists)
         self.tableView.reloadData()
     }
     
@@ -59,9 +60,8 @@ class HomeViewController: UIViewController {
         NetworkManager.fetchTopArtists(){ (result) in
             switch result{
             case let .success(artists):
-                DispatchQueue.main.async {
-                    self.artists = artists
-                }
+                self.artistList = artists
+                self.tableView.reloadData()
             case let .failure(error):
                 print(error)
             }
@@ -72,19 +72,40 @@ class HomeViewController: UIViewController {
 //MARK: Table Extensions
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return artists.count
+        return artistList.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
+        
+        let urlString = artistList[indexPath.row].images.first?.url
+        let url = URL(string: urlString!)
+        cell.imageView?.kf.setImage(with: url, options: []) { result in
+            switch result{
+            case .success(let value):
+                DispatchQueue.main.async{
+                    cell.imageView?.image = value.image
+                    cell.textLabel?.text = self.artistList[indexPath.row].name
+//                    cell.artistImage.image = value.image
+//                    cell.artistLabel.text = self.artistList[indexPath.row].name
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        let cell = tableView.cellForRow(at: indexPath) as! HomeCell
         let vc = SongViewController()
-        vc.artist = "Artists Name"
-        vc.followers = 1
+        vc.artist = artistList[indexPath.row].name
+        vc.followers = artistList[indexPath.row].followers.total
+        vc.artistID = artistList[indexPath.row].id as! String
         navigationController?.pushViewController(vc, animated: true)
     }
     

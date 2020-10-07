@@ -174,6 +174,7 @@ class NetworkManager{
     //MARK: Fetch Artists
     static func fetchTopArtists(completion: @escaping (Result<[Artist], Error>) -> Void){
         _ = Spartan.getMyTopArtists(limit: 50, offset: 0, timeRange: .mediumTerm, success: { (pagingObject) in
+//            print(pagingObject.toJSON())
             completion(.success(pagingObject.items))
         }, failure: { (error) in
             completion(.failure(error))
@@ -183,6 +184,7 @@ class NetworkManager{
     //MARK: Fetch Artists Top Tracks
     static func fetchTopTracks(artistId: String,completion: @escaping (Result<[Track], Error>) -> Void){
         _ = Spartan.getArtistsTopTracks(artistId: artistId, country: .us, success: { (tracks) in
+            print(tracks.toJSON())
             completion(.success(tracks))
        }, failure: { (error) in
         completion(.failure(error))

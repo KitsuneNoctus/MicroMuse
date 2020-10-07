@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SongCell: UITableViewCell {
     static let identifier = "SongCell"
@@ -58,7 +59,7 @@ class SongCell: UITableViewCell {
             /// Song Image Constraints
             songImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             songImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
-            songImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: 10),
+            songImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -10),
             
             /// Song Label Constraints
             songLabel.leadingAnchor.constraint(equalTo: self.songImage.trailingAnchor, constant: 20),

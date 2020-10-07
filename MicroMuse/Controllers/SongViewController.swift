@@ -16,13 +16,13 @@ class SongViewController: UIViewController {
     var artist = "Artist"
     var followers = 0
     var artistID = ""
-    var songs:[SimplifiedTrack] = []
+    var songs:[Track] = []
     
     let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .clear
-        table.register(HomeCell.self, forCellReuseIdentifier: HomeCell.identifier)
+        table.register(SongCell.self, forCellReuseIdentifier: SongCell.identifier)
         table.separatorStyle = UITableViewCell.SeparatorStyle.none
         return table
     }()
@@ -47,6 +47,8 @@ class SongViewController: UIViewController {
         self.title = artist
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
+        setup()
+        FetchSongs()
         
     }
     
@@ -77,18 +79,14 @@ class SongViewController: UIViewController {
             case let .success(track):
                 DispatchQueue.main.async {
                     self.songs = track
+                    print(self.songs)
+                    self.tableView.reloadData()
                 }
             case let .failure(error):
                 print(error)
             }
         }
     }
-    
-    //MARK: Player
-    func playSong(){
-        
-    }
-    
 }
 
 //MARK: Table Extensions
@@ -99,7 +97,14 @@ extension SongViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SongCell.identifier, for: indexPath) as! SongCell
+        
+//        let urlString = artistList[indexPath.row].images.first?.url
+        let urlString = songs[indexPath.row].album.images.first?.url
+        let url = URL(string: urlString!)
+        cell.songImage.kf.setImage(with: url)
+        
         cell.songLabel.text = songs[indexPath.row].name
+//        cell.textLabel?.text = songs[indexPath.row].name
         return cell
     }
     

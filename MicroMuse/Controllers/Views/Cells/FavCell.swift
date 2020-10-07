@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FavCell: UITableViewCell {
     static let identifier = "FavCell"
