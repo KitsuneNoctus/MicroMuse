@@ -13,11 +13,14 @@ import Kingfisher
 
 class SongViewController: UIViewController {
     
+    let userDefaults = UserDefaults.standard
+    let defaultKey = "FavoriteSongs"
+    
     var artist = "Artist"
     var followers = 0
     var artistID = ""
     var songs:[Track] = []
-    var favs:[Any] = []
+    var favs:[String] = []
     
     let tableView: UITableView = {
         let table = UITableView()
@@ -48,6 +51,9 @@ class SongViewController: UIViewController {
         self.title = artist
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
+        if let favorites = userDefaults.stringArray(forKey: defaultKey){
+            self.favs = favorites
+        }
         setup()
         FetchSongs()
         
@@ -113,10 +119,30 @@ extension SongViewController: UITableViewDelegate, UITableViewDataSource{
         cell.playButton.isEnabled = true
         cell.songURL = songURL
         
+        guard let songID = self.songs[indexPath.row].id else {
+            print("oops")
+            return cell
+        }
+        let stringID = songID as! String
+        
+        if self.favs.contains(stringID) {
+            cell.favButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        }
+        
+        //MARK: Tap Check
         cell.tapCheck = {
             print("Favorited")
-            self.favs.append(self.songs[indexPath.row].id!)
-            tableView.reloadData()
+            if self.favs.contains(stringID){
+                if let index = self.favs.firstIndex(of: stringID) {
+                    self.favs.remove(at: index)
+                }
+                self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
+                tableView.reloadData()
+            }else{
+                self.favs.append(stringID)
+                self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
+                tableView.reloadData()
+            }
         }
 
         return cell

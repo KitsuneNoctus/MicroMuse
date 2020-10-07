@@ -13,20 +13,34 @@ import Kingfisher
 
 class FavViewController: UIViewController {
     
+    let userDefaults = UserDefaults.standard
+    let defaultKey = "FavoriteSongs"
+    
+    var favs:[String] = []
+    var songs:[Track] = []
+    
     let tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .clear
-        table.register(HomeCell.self, forCellReuseIdentifier: HomeCell.identifier)
+        table.register(UINib(nibName: "SongsCell", bundle: nil), forCellReuseIdentifier: SongsCell.identifier)
         table.separatorStyle = UITableViewCell.SeparatorStyle.none
         return table
     }()
     
+    //MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Your Favorites"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
+        if let favorites = userDefaults.stringArray(forKey: defaultKey){
+            self.favs = favorites
+        }
+        
+        for id in favs{
+            FetchSongs(id)
+        }
         setup()
     }
     
@@ -43,22 +57,82 @@ class FavViewController: UIViewController {
         ])
     }
     
-    
-    //MARK: Song Player
-    func playSong(){
-        
+    //MARK: Fetch Songs
+    func FetchSongs(_ songID: String){
+        NetworkManager.fetchSong(trackId: songID){ (result) in
+            switch result{
+            case let .success(track):
+                self.songs.append(track)
+                print(track.toJSON())
+                self.tableView.reloadData()
+            case let .failure(error):
+                print(error)
+            }
+        }
+//        NetworkManager.fetchTopTracks(artistId: artistID) { (result) in
+//            switch result{
+//            case let .success(track):
+//                DispatchQueue.main.async {
+//                    self.songs = track
+////                    print(self.songs)
+//                    self.tableView.reloadData()
+//                }
+//            case let .failure(error):
+//                print(error)
+//            }
+//        }
     }
-    
 }
 
 //MARK: Table Extensions
 extension FavViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return songs.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: HomeCell.identifier, for: indexPath) as! HomeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: SongsCell.identifier, for: indexPath) as! SongsCell
+//        let urlString = songs[indexPath.row].album.images.first?.url
+//        let url = URL(string: urlString!)
+//        cell.albumImage.kf.setImage(with: url)
+        cell.songName.text = songs[indexPath.row].name
+        guard let songURL = songs[indexPath.row].previewUrl else{
+            cell.playButton.isEnabled = false
+            return cell
+        }
+        cell.playButton.isEnabled = true
+        cell.songURL = songURL
+
+        guard let songID = self.songs[indexPath.row].id else {
+            print("oops")
+            return cell
+        }
+        let stringID = songID as! String
+
+        if self.favs.contains(stringID) {
+            cell.favButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+        }
+
+        //MARK: Tap Check
+        cell.tapCheck = {
+            print("Favorited")
+            if self.favs.contains(stringID){
+                if let index = self.favs.firstIndex(of: stringID) {
+                    self.favs.remove(at: index)
+                }
+                self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
+                tableView.reloadData()
+            }else{
+                self.favs.append(stringID)
+                self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
+                tableView.reloadData()
+            }
+        }
+
         return cell
     }
     
