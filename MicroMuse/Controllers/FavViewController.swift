@@ -45,6 +45,10 @@ class FavViewController: UIViewController {
         setup()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
+    
     //MARK: Setup
     func setup(){
         tableView.dataSource = self
@@ -97,9 +101,9 @@ extension FavViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SongsCell.identifier, for: indexPath) as! SongsCell
-//        let urlString = songs[indexPath.row].album.images.first?.url
-//        let url = URL(string: urlString!)
-//        cell.albumImage.kf.setImage(with: url)
+        let urlString = songs[indexPath.row].album.images.first?.url
+        let url = URL(string: urlString!)
+        cell.albumImage.kf.setImage(with: url)
         cell.songName.text = songs[indexPath.row].name
         guard let songURL = songs[indexPath.row].previewUrl else{
             cell.playButton.isEnabled = false

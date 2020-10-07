@@ -31,9 +31,9 @@ class HomeViewController: UIViewController {
         self.title = "Top Artists"
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
         setTable()
         fetchArtists()
-//        print(artists)
         self.tableView.reloadData()
     }
     
@@ -66,6 +66,12 @@ class HomeViewController: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    //MARK: @Objc
+    @objc func logout(){
+        print("logout?")
+        self.dismiss(animated: true, completion: nil)
     }
 }
 

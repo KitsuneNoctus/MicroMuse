@@ -28,7 +28,7 @@ class MusicPlayer{
     //MARK: Play Music
     public func playMusic(_ songURL: URL){
         do {
-            print(songURL)
+//            print(songURL)
             self.AudioPlayer = try AVAudioPlayer(contentsOf: songURL)
             do {
                 try AVAudioSession.sharedInstance().setCategory(.playback)
