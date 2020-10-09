@@ -1,7 +1,8 @@
 # MicroMuse
 Make School | MOB 2.3 | Final Project for MOB 2.3
 
-> A project that allows users to look at the 50 top artists on Spotify and preview their songs. Allows the user to then save the songs they like.
+> A project that allows users to look at the top artists of their Spotify account and preview their songs. Allows the user to then save the songs they like (Within the app).
+ - **Note!** You will need the Spotify App installed in order to use the login feature for this application
 
 ## Technologies
  - CoreData
@@ -12,7 +13,7 @@ Make School | MOB 2.3 | Final Project for MOB 2.3
  ## Given Wireframes
  ![wire](wire.jpeg)
  
- ### How it Work
+ ### How it Works
  Using the app is a matter of installing it on your phone, along with the Spotify App
  
  Once open, you login and authenticate using your Spotify account via the Spotify app
