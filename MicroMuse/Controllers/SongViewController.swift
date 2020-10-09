@@ -137,6 +137,9 @@ extension SongViewController: UITableViewDelegate, UITableViewDataSource{
                     self.favs.remove(at: index)
                 }
                 self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
+//                if let favorites = self.userDefaults.stringArray(forKey: self.defaultKey){
+//                    self.favs = favorites
+//                }
                 self.tableView.reloadData()
             }else{
                 self.favs.append(stringID)
