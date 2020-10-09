@@ -42,6 +42,7 @@ class FavViewController: UIViewController {
 //        for id in favs{
 //            FetchSongs(id)
 //        }
+        self.tableView.reloadData()
         setup()
     }
     
@@ -64,28 +65,18 @@ class FavViewController: UIViewController {
     
     //MARK: Fetch Songs
     func FetchSongs(_ songID: [String]){
-        NetworkManager.fetchSong(trackIds: songID){ (result) in
-            switch result{
-            case let .success(tracks):
-                self.songs = tracks
-//                print(track.toJSON())
-                self.tableView.reloadData()
-            case let .failure(error):
-                print(error)
+        DispatchQueue.global(qos: .userInitiated).async {
+            NetworkManager.fetchSong(trackIds: songID){ (result) in
+                switch result{
+                case let .success(tracks):
+                    self.songs = tracks
+                    //                print(track.toJSON())
+                    self.tableView.reloadData()
+                case let .failure(error):
+                    print(error)
+                }
             }
         }
-//        NetworkManager.fetchTopTracks(artistId: artistID) { (result) in
-//            switch result{
-//            case let .success(track):
-//                DispatchQueue.main.async {
-//                    self.songs = track
-////                    print(self.songs)
-//                    self.tableView.reloadData()
-//                }
-//            case let .failure(error):
-//                print(error)
-//            }
-//        }
     }
 }
 
@@ -130,11 +121,11 @@ extension FavViewController: UITableViewDelegate, UITableViewDataSource{
                     self.favs.remove(at: index)
                 }
                 self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
-                tableView.reloadData()
+                self.tableView.reloadData()
             }else{
                 self.favs.append(stringID)
                 self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
-                tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
 

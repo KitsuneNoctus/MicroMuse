@@ -137,11 +137,11 @@ extension SongViewController: UITableViewDelegate, UITableViewDataSource{
                     self.favs.remove(at: index)
                 }
                 self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
-                tableView.reloadData()
+                self.tableView.reloadData()
             }else{
                 self.favs.append(stringID)
                 self.userDefaults.setValue(self.favs, forKey: self.defaultKey)
-                tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
 

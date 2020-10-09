@@ -23,7 +23,7 @@ class LoginController: UIViewController{
                 _ = Spartan.getMe(success: { (user) in
                     // Do something with the user
                     print(user.displayName)
-                    print(user.email)
+//                    print(user.email)
                     DispatchQueue.main.async {
                         let nextVC = TabHomeController()
                         self.navigationController?.pushViewController(nextVC, animated: true)

@@ -57,13 +57,15 @@ class HomeViewController: UIViewController {
     }
     
     func fetchArtists(){
-        NetworkManager.fetchTopArtists(){ (result) in
-            switch result{
-            case let .success(artists):
-                self.artistList = artists
-                self.tableView.reloadData()
-            case let .failure(error):
-                print(error)
+        DispatchQueue.global(qos: .userInitiated).async {
+            NetworkManager.fetchTopArtists(){ (result) in
+                switch result{
+                case let .success(artists):
+                    self.artistList = artists
+                    self.tableView.reloadData()
+                case let .failure(error):
+                    print(error)
+                }
             }
         }
     }
@@ -72,6 +74,12 @@ class HomeViewController: UIViewController {
     @objc func logout(){
         print("logout?")
         self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+//        print(self.view.window?.rootViewController)
+//        self.navigationController?.popViewController(animated: true)
+//        self.dismiss(animated: true, completion: nil)
+//        self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+//        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 

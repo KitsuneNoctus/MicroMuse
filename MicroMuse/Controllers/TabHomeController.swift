@@ -26,6 +26,7 @@ class TabHomeController: UITabBarController, UITabBarControllerDelegate {
         home.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named:"home"), tag: 0)
         
         let favorites = FavViewController()
+        favorites.tableView.reloadData()
         let navFav = UINavigationController(rootViewController: favorites)
         favorites.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(named:"star"), tag: 1)
         
@@ -33,6 +34,9 @@ class TabHomeController: UITabBarController, UITabBarControllerDelegate {
     }
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if viewController == FavViewController(){
+            FavViewController().tableView.reloadData()
+        }
         print("Selected a new view controller")
     }
 
